@@ -1,0 +1,47 @@
+.weather{
+  width:50%;
+  background: lime;
+  height: 80vh;
+  border-radius: 10px 0 0 0;
+}
+.Temporary{
+  width: 100%;
+  background:coral;
+  height: 55vh;
+  border-radius: 10px;
+}
+.TempIcon,.MinTemp,.MaxTemp{
+
+  background: url("/weather-icon.jpg");
+  background-repeat: no-repeat;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 25px;
+  padding: 0 10px;
+  margin-right: 15px;
+
+}
+.TempIcon{
+  width: 10px;
+  height: 20px;
+  background-position: 29% 97%;
+}
+.MinTemp{
+  width: 14px;
+  height: 20px;
+  background-position: 34% 97%;
+}
+.MaxTemp{
+  width: 14px;
+  height: 20px;
+  background-position: 97% 97%;
+}
+.weather-today{
+  width: 100%;
+  height: 25vh;
+  background: yellow;
+  border-radius: 0 0 20px 0;
+
+
+}
