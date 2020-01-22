@@ -22,8 +22,8 @@ const getTime = () => {
   return { todayDate, todayMilli };
 };
 
-const WeatherImage = () => {
-  const { state: stateR } = useWeatherRecord();
+const WeatherImage = props => {
+  const { state: stateR, addWeekend } = useWeatherRecord();
   const [state, setState] = useState({});
 
   const [temp, setTemp] = useState();
@@ -32,13 +32,17 @@ const WeatherImage = () => {
 
   console.log(stateR);
   useEffect(() => {
-    getData();
+    getData(props.token);
     getData1();
   }, []);
 
-  const getData = async () => {
+  useEffect(() => {
+    console.log('stateR', stateR);
+  }, [stateR]);
+
+  const getData = async token => {
     const appid = 'e809a87e6cd4872c422d92a2f10d9973';
-    const q = 'london';
+    const q = token;
     const { data } = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${appid}`,
     );
@@ -46,6 +50,7 @@ const WeatherImage = () => {
     console.log(data);
     console.log(data.weather[0].main);
     console.log(data.main.temp);
+
     setState({
       main: data.main,
     });
@@ -98,6 +103,14 @@ const WeatherImage = () => {
           : list.dt_txt.slice(11) === minusLastTime.toTimeString().slice(0, 8),
       ),
     );
+
+    const weekend = data.list.filter(list =>
+      list.dt_txt.slice(11) === lastTime.toTimeString().slice(0, 8)
+        ? list.dt_txt.slice(11) === lastTime.toTimeString().slice(0, 8)
+        : list.dt_txt.slice(11) === minusLastTime.toTimeString().slice(0, 8),
+    );
+
+    addWeekend(weekend);
   };
 
   return (

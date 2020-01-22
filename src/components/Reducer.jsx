@@ -13,6 +13,15 @@ const reducer = (state, action) => {
         cities: [...state.cities, action.city],
       };
 
+    case 'WEEKEND':
+      return {
+        ...state,
+        weather: {
+          ...state.weather,
+          weekend: action.weekend,
+        },
+      };
+
     default:
       return state;
   }
@@ -27,5 +36,9 @@ export function useWeatherRecord(data) {
     dispatch({ type: 'ADD', city });
   };
 
-  return { state, addCityLists };
+  const addWeekend = weekend => {
+    dispatch({ type: 'WEEKEND', weekend });
+  };
+
+  return { state, addCityLists, addWeekend };
 }
