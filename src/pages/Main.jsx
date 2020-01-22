@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
-// import useWeatherRecordProvider from '../components/Reducer';
+import WeatherContext from '../components/WeatherContext/WeatherContext';
+import WeatherImage from '../components/WeatherImage/Weatherimage';
 
 const StyledBgCircle = styled.div`
   position: absolute;
@@ -35,106 +35,43 @@ const StyledBg = styled.div`
   height: 100vh;
 `;
 
-const getDate = () => {};
+const StyledRow = styled.div`
+  display: flex;
+  align-items: middle;
+  height: 100vh;
+`;
+const StyledCol = styled.div`
+  /* background: aqua; */
+  height: 100vh;
+  width: 100vw;
+`;
+const StyledContents = styled.div`
+  display: flex;
+  margin-top: 100px;
+  background-color: #f3f7f8;
+  margin-left: 50px;
+  margin-right: 50px;
+  align-items: middle;
+`;
 
 const Main = props => {
-  const [data, setDate] = useState({});
-  const [state, setState] = useState({});
-
   // 쿼리로 데이터 가져오기
   const query = new URLSearchParams(props.location.search);
   const token = JSON.parse(query.get('data'));
   console.log(token);
 
-  const getTime = () => {
-    const today = new Date();
-    const todayMilli = Date.parse(new Date());
-    console.log(todayMilli);
-
-    const arrTime = [
-      today.getFullYear(),
-      '0' + (today.getMonth() + 1),
-      today.getDate(),
-    ];
-
-    const todayDate = arrTime.reduce((pre, cur) => pre + '-' + cur);
-
-    return { todayDate, todayMilli };
-  };
-
-  const getDate1 = async () => {
-    const q = 'LONDON';
-    const appid = '5e1df5c43452466b07ee8843b5f8959c';
-
-    const { data } = await Axios.get(
-      `http://api.openweathermap.org/data/2.5/forecast?q=${q}&appid=${appid}`,
-    );
-
-    // 시간데이터 가져오기
-    const { todayDate, todayMilli } = getTime();
-
-    console.log(data.list[0].dt_txt.slice(0, 10) === todayDate);
-
-    // 현재 날짜의 3시간 간격의 데이터 5개
-    const result = data.list.filter(
-      list => list.dt_txt.slice(0, 10) === todayDate,
-    );
-
-    console.log(result);
-
-    // 가져온 데이터의 현재시간을 밀리초롤 변경후 현재시간의 밀리초를 뺀 결과의 배열
-    const resultMili = result.map(list =>
-      Math.abs(Date.parse(list.dt_txt) - todayMilli),
-    );
-
-    console.log(resultMili);
-
-    console.log(resultMili.sort((a, b) => a - b));
-
-    // 최소값
-    const minResultMili = resultMili.sort((a, b) => a - b)[0];
-    const minusMinResultMili = resultMili.sort((a, b) => a - b)[0] * -1;
-
-    console.log(minResultMili, minusMinResultMili);
-
-    // 최소값의 밀리초에 현재 밀리초를 더한뒤 현재시간을 가져옴
-    const lastTime = new Date(minResultMili + todayMilli);
-    const minusLastTime = new Date(minusMinResultMili + todayMilli);
-
-    // 현재 시간에서 제일 가까운 시간대의 데이터의 시간
-    console.log(lastTime.toTimeString().slice(0, 9));
-    console.log(minusLastTime.toTimeString().slice(0, 9));
-
-    // 위에서 가져오 데이터의 시간과 같은 5일치의 데이터에서 맞는 데이터 필터
-    console.log(
-      data.list.filter(list =>
-        list.dt_txt.slice(11) === lastTime.toTimeString().slice(0, 8)
-          ? list.dt_txt.slice(11) === lastTime.toTimeString().slice(0, 8)
-          : list.dt_txt.slice(11) === minusLastTime.toTimeString().slice(0, 8),
-      ),
-    );
-
-    // 데이터 state에 저장
-  };
-
-  const getDate2 = async () => {
-    const q = 'seoul';
-    const appid = '5e1df5c43452466b07ee8843b5f8959c';
-
-    const { data } = await Axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${appid}`,
-    );
-    console.log(data.weather);
-    setState(data.main);
-  };
-  console.log(state.temp);
   return (
     <>
       <StyledBg>
-        <StyledBgCircle></StyledBgCircle>
+        <StyledRow>
+          <StyledCol>
+            <StyledContents>
+              <WeatherContext token={token} />
+              <WeatherImage token={token} />
+            </StyledContents>
+          </StyledCol>
+        </StyledRow>
       </StyledBg>
-      <button onClick={() => getDate1()}>data</button>
-      <button onClick={() => getDate2()}>data</button>
     </>
   );
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Main from './pages/Main';
-import './App.css';
 
 function App() {
   return (
@@ -14,5 +13,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;
