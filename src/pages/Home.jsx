@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import styled from 'styled-components';
 import uuid from 'uuid';
 import NavDate from '../components/NavDate';
-import useWeatherRecord from '../components/Reducer';
+import { useWeatherRecord } from '../components/Reducer';
 
 // styled-components
 // Layout-grid
@@ -146,6 +146,11 @@ const Home = props => {
   //ref
   let inputValue = createRef();
 
+  // useEffect
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+
   // Event
   const addCityList = ({ target, key }) => {
     if (key !== 'Enter') return;
@@ -156,22 +161,20 @@ const Home = props => {
 
   const addClickCityList = () => {
     if (inputValue.current.value === '') return;
-    setCityList(
-      cityLists.concat(inputValue.current.value.trim().toUpperCase()),
-    );
+
+    addCityLists(inputValue.current.value.trim().toUpperCase());
 
     inputValue.current.value = '';
   };
 
   const moveToMain = () => {
-    props.history.push('/main');
+    const data = JSON.stringify(state.cities);
+    props.history.push(`/main?data=${data}`);
   };
 
   const removeList = e => {
     console.log(e.target);
   };
-
-  console.log(cityLists);
 
   return (
     <>
