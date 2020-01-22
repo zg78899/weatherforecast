@@ -1,4 +1,4 @@
-import { useReducer, useCallback } from 'react';
+import React, { useReducer } from 'react';
 
 const initialState = {
   cities: [],
@@ -18,7 +18,7 @@ const reducer = (state, action) => {
   }
 };
 
-const useWeatherRecord = data => {
+export function useWeatherRecord(data) {
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
   });
@@ -27,7 +27,6 @@ const useWeatherRecord = data => {
     dispatch({ type: 'ADD', city });
   };
 
+  console.log(state);
   return { state, addCityLists };
-};
-
-export default useWeatherRecord;
+}
