@@ -27,6 +27,5 @@ export function useWeatherRecord(data) {
     dispatch({ type: 'ADD', city });
   };
 
-  console.log(state);
   return { state, addCityLists };
 }
