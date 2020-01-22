@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './WeatherImage.css';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import useWeatherRecord from '../Reducer';
+import {useWeatherRecord} from '../Reducer';
 import { FaTemperatureLow, FaTemperatureHigh } from 'react-icons/fa';
 
 const WeatherImage = () => {
@@ -23,7 +23,6 @@ const WeatherImage = () => {
   const getData = async () => {
     const appid = 'e809a87e6cd4872c422d92a2f10d9973'
     const q = 'london';
-
     const { data } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${appid}`);
     console.log(data);
     console.log(data.weather[0].main);

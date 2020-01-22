@@ -44,16 +44,22 @@ const StyledBg = styled.div`
   background: linear-gradient(to top, #86dbff 0%, #e0c3fc 100%);
   position: relative;
 `;
-const Main = () => (
+const Main = (props) => {
+  const query = new URLSearchParams(props.location.search);
+  const token = JSON.parse(query.get('data'));
+  console.log(token);
+
+return (
   <StyledBg>
     <StyledRow>
       <StyledCol>
         <StyledContents>
-          <WeatherContext />
+          <WeatherContext token={token}/>
           <WeatherImage />
         </StyledContents>
       </StyledCol>
     </StyledRow>
   </StyledBg>
 );
+}
 export default Main;
