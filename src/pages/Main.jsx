@@ -1,41 +1,3 @@
-// import React from 'react';
-// import { Row, Col } from 'antd';
-// import styled from 'styled-components';
-// import WeatherContext from '../components/WeatherContext/WeatherContext';
-// import WeatherImage from '../components/WeatherImage/Weatherimage';
-// const StyledRow = styled(Row).attrs(() => ({
-//   type: 'flex',
-//   align: 'middle'
-// }))`
-//   height: 100vh;
-// `;
-// const StyledCol = styled(Col).attrs(() => ({
-//   span: 12
-// }))`
-//   background: aqua;
-//   height: 100vh;
-// `;
-// const StyledContents = styled(Row).attrs(() => ({
-//   type: 'flex'
-// }))`
-//   margin-top: 50px;
-//   background-color: #f3f7f8;
-//   margin-left: 50px;
-//   margin-right: 50px;
-//   ;
-// `;
-
-// const Main = () => (
-//   <StyledRow>
-//     <StyledCol>
-//       <StyledContents>
-//         <WeatherContext />
-//         <WeatherImage />
-//       </StyledContents>
-//     </StyledCol>
-//   </StyledRow>
-// );
-// export default Main;
 import React from 'react';
 import styled from 'styled-components';
 import WeatherContext from '../components/WeatherContext/WeatherContext';
@@ -59,14 +21,39 @@ const StyledContents = styled.div`
   margin-right: 50px;
   align-items:middle;
 `;
+
+const StyledBgCircle = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  height: 200rem;
+  width: 200rem;
+  border-radius: 50%;
+  background: linear-gradient(
+    -225deg,
+    #ffffff 0%,
+    #ffe29f 10%,
+    #ffa99f 48%,
+    #ffd1ff 100%
+  );
+  animation: scaleup-circle 900ms ease-in-out forwards;
+  transition: background 1s ease-in-out;
+`;
+const StyledBg = styled.div`
+  background: linear-gradient(to top, #86dbff 0%, #e0c3fc 100%);
+  position: relative;
+`;
 const Main = () => (
-  <StyledRow>
-    <StyledCol>
-      <StyledContents>
-        <WeatherContext />
-        <WeatherImage />
-      </StyledContents>
-    </StyledCol>
-  </StyledRow>
+  <StyledBg>
+    <StyledRow>
+      <StyledCol>
+        <StyledContents>
+          <WeatherContext />
+          <WeatherImage />
+        </StyledContents>
+      </StyledCol>
+    </StyledRow>
+  </StyledBg>
 );
 export default Main;

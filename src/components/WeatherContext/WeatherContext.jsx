@@ -1,21 +1,27 @@
 import React from 'react';
-// import styled from 'styled-components';
-// import { Col } from 'antd';
 import './WeatherContext.css';
+import { withRouter } from 'react-router-dom';
 
-const WeatherContext = () => {
+const WeatherContext = (props) => {
   return (
-    <div className="weather-name">
-      <div>
-        제목
+    <>
+      <button onClick={() => props.history.push('/')}>Go Back</button>
+      <div className="weather-name">
+        <div>
+          제목
       </div>
-      <div className="country">
-        <ul className="country-name">
-          <li>
-          </li>
-        </ul>
+        <div className="country">
+          <ul className="country-name">
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   )
 };
-export default WeatherContext;
+export default withRouter(WeatherContext);
